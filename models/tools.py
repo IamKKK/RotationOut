@@ -58,13 +58,11 @@ class Rotation(nn.Module):
     def forward(self, x):
         if not self.training: return x
 
-        tensor_shape = list(x.shape)
-        tensor_shape[1] = 1
-
+        bs = x.shape[0]
         if self.theta == 'Gaussian':
-            theta = self.drop_std * abs(torch.randn(size=tensor_shape, device=self.device))
+            theta = self.drop_std * torch.randn(size=(bs,1,1,1), device=self.device)
         elif self.theta == 'Uniform':
-            theta = self.drop_std * torch.rand(size=tensor_shape, device=self.device)
+            theta = self.drop_std * torch.rand(size=(bs,1,1,1), device=self.device)
 
         index1, index2 = self.indexes[self.count%self.pre_loop]
         self.count += 1
