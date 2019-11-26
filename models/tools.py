@@ -57,7 +57,8 @@ class Rotation(nn.Module):
 
     def forward(self, x):
         if not self.training: return x
-
+        # never see clean feature？
+        # warm up？
         bs = x.shape[0]
         if self.theta == 'Gaussian':
             theta = self.drop_std * torch.randn(size=(bs,1,1,1), device=self.device)
