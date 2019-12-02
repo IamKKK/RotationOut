@@ -4,9 +4,9 @@ import numpy as np
 
 
 class Dropout(nn.Module):
-    def __init__(self, drop_rate, center=False):
+    def __init__(self, drop_rate, center=True):
         super(Dropout, self).__init__()
-        self.drop = nn.Dropout(drop_rate)
+        self.drop = nn.Dropout2d(drop_rate)
         self.center = center
 
     def forward(self, x):
@@ -57,13 +57,15 @@ class Rotation(nn.Module):
 
     def forward(self, x):
         if not self.training: return x
-        # never see clean feature？
-        # warm up？
+        if self.count < 2000:
+            drop_std = self.drop_std * self.count / 2000.
+        else:
+            drop_std = self.drop_std
         bs = x.shape[0]
         if self.theta == 'Gaussian':
-            theta = self.drop_std * torch.randn(size=(bs,1,1,1), device=self.device)
+            theta = drop_std * torch.randn(size=(bs,1,1,1), device=self.device)
         elif self.theta == 'Uniform':
-            theta = self.drop_std * torch.rand(size=(bs,1,1,1), device=self.device)
+            theta = drop_std * torch.rand(size=(bs,1,1,1), device=self.device)
 
         index1, index2 = self.indexes[self.count%self.pre_loop]
         self.count += 1
