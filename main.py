@@ -29,7 +29,7 @@ net = net.to('cuda')
 trainloader, testloader = cifar_loader()
 criterion = torch.nn.CrossEntropyLoss()
 
-optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=1e-4)
+optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
 scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[82, 123, 160], gamma=0.1)
 
 for epoch in range(165):
