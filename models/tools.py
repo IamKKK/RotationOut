@@ -57,8 +57,8 @@ class Rotation(nn.Module):
 
     def forward(self, x):
         if not self.training: return x
-        if self.count < 2000:
-            drop_std = self.drop_std * self.count / 2000.
+        if self.count < 1000:
+            drop_std = self.drop_std * self.count / 1000.
         else:
             drop_std = self.drop_std
         bs = x.shape[0]
