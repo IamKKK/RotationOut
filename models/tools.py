@@ -20,7 +20,7 @@ class Dropout(nn.Module):
 
 class Rotation(nn.Module):
     def __init__(self, dim, drop_rate=0.5, 
-                    device='cuda', pre_loop=10000, theta='Gaussian'):
+                    device='cuda', pre_loop=20000, theta='Gaussian'):
         super(Rotation, self).__init__()
         self.dim = dim
         self.device = device
