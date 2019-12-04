@@ -4,7 +4,7 @@ import numpy as np
 
 
 class Dropout(nn.Module):
-    def __init__(self, drop_rate, center=True):
+    def __init__(self, drop_rate, center=False):
         super(Dropout, self).__init__()
         self.drop = nn.Dropout2d(drop_rate)
         self.center = center
