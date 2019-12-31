@@ -34,10 +34,10 @@ scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[82, 123,
 
 for epoch in range(165):
     t = time.time()
-    scheduler.step()
     train_loss, train_acc = train(net, trainloader, criterion, optimizer)
     test_loss, test_acc = test(net, testloader, criterion)
     print('Epoch %d: train loss %.3f, acc: %.3f; test loss: %.3f, acc %.3f; time: %.3f min'%
             (epoch, train_loss, train_acc, test_loss, test_acc, (time.time()-t)/60))
+    scheduler.step()
 
 print('Training {} with drop rate: {}, drop_type: "{}" done.'.format(model_name, drop_rate, drop_type))
